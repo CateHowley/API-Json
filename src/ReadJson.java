@@ -71,9 +71,10 @@ public class ReadJson {
         org.json.simple.JSONObject jsonObject = (org.json.simple.JSONObject) parser.parse(totlaJson);
         System.out.println(jsonObject);
 
+
         try {
 
-            String name = (String)jsonObject.get("eye_color");
+            String name = (String)jsonObject.get("name");
 
             org.json.simple.JSONArray msg = (org.json.simple.JSONArray) jsonObject.get("starships");
             int n =   msg.size(); //(msg).length();
