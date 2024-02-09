@@ -14,6 +14,8 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import javax.swing.*;
+
 // Program for print data in JSON format.
 public class ReadJson {
     public static void main(String args[]) throws ParseException {
@@ -115,7 +117,10 @@ public class ReadJson {
         }
 
 
-
+public void Initilize
+        frame=new JFrame();
+        frame=setTitle("BorderPane");
+        frame.setDefault
 
     }
 }
