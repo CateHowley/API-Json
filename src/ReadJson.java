@@ -1,9 +1,13 @@
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+
 
 
 // video to load jar
@@ -15,9 +19,30 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import javax.swing.*;
+import javax.swing.plaf.basic.BasicOptionPaneUI;
 
 // Program for print data in JSON format.
-public class ReadJson {
+public class ReadJson  implements ActionListener {
+
+
+    private JFrame mainFrame;
+    private JLabel headerLabel;
+    private JTextArea statusLabel;
+    private JPanel controlPanel;
+    private JPanel topPanel;
+
+    private JMenuBar mb;
+    private JMenu file, edit, help;
+    private JMenuItem cut, copy, paste, selectAll;
+    private JTextArea url;
+    private int WIDTH = 800;
+    private int HEIGHT = 700;
+    private JTextArea search;
+    private JTextArea results;
+    private JLabel emptySpace;
+    private JScrollPane scrollPane;
+
+
     public static void main(String args[]) throws ParseException {
         // In java JSONObject is used to create JSON object
         // which is a subclass of java.util.HashMap.
@@ -27,14 +52,99 @@ public class ReadJson {
         file.put("Roll No.", 1704310046);
         file.put("Tution Fees", 65400);
 
-
+        ReadJson reading = new ReadJson();
         // To print in JSON format.
         System.out.print(file.get("Tuition Fees"));
-        pull();
+
 
     }
 
-    public static void pull() throws ParseException {
+    public ReadJson()  throws ParseException{
+        pull();
+        prepareGUI();
+    }
+
+
+    public void prepareGUI() {
+        mainFrame = new JFrame("Java SWING");
+        mainFrame.setSize(WIDTH, HEIGHT);
+        mainFrame.setLayout(new GridLayout(3, 1));
+
+        topPanel = new JPanel();
+        topPanel.setLayout(new GridLayout(1, 3));
+        cut = new JMenuItem("cut");
+        copy = new JMenuItem("copy");
+        paste = new JMenuItem("paste");
+        selectAll = new JMenuItem("selectAll");
+        cut.addActionListener(this);
+        copy.addActionListener(this);
+        paste.addActionListener(this);
+        selectAll.addActionListener(this);
+
+        mb = new JMenuBar();
+        file = new JMenu("File");
+        edit = new JMenu("Edit");
+        help = new JMenu("Help");
+        edit.add(cut);
+        edit.add(copy);
+        edit.add(paste);
+        edit.add(selectAll);
+        mb.add(file);
+        mb.add(edit);
+        mb.add(help);
+
+
+        url = new JTextArea("url");
+        emptySpace = new JLabel("space");
+        search = new JTextArea("search term");
+
+
+        mainFrame.add(mb);
+        topPanel.add(url);
+        topPanel.add(emptySpace);
+        topPanel.add(search);
+
+        mainFrame.setJMenuBar(mb);
+        mainFrame.add(topPanel);
+
+        headerLabel = new JLabel("", JLabel.CENTER);
+        results = new JTextArea();
+        results.setSize(350, 100);
+
+//        scrollPane = new JScrollPane(results);
+//        scrollPane.setVerticalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        mainFrame.setVisible(true);
+
+    }
+
+
+public void Array(){
+    JButton okayButton = new JButton("okay");
+    JButton submitButton = new JButton("submit");
+    JButton cancelButton = new JButton("canel");
+
+    okayButton.setActionCommand("okay");
+    submitButton.setActionCommand("submit");
+    cancelButton.setActionCommand("cancel");
+
+    okayButton.addActionListener( new ButtonClickListener());
+    submitButton.addActionListener( new ButtonClickListener());
+    cancelButton.addActionListener(new ButtonClickListener());
+
+    controlPanel.add(okayButton);
+    controlPanel.add(submitButton);
+    controlPanel.add(cancelButton);
+    controlPanel. add(okayButton);
+
+    mainFrame.setVisible(true);
+
+}
+
+
+
+
+
+    public  void pull() throws ParseException {
         String output = "abc";
         String totlaJson="";
         try {
@@ -90,9 +200,9 @@ public class ReadJson {
             JSONObject secretTunnelGuy3=(JSONObject) JSONArray.get(3);
             System.out.println(secretTunnelGuy3.get("name"));
 
-            for(int x=0; 0<JSONArray.size();x++){
-                JSONObject secretTunnelGuy =(JSONObject) JSONArray.get(x);
-                System.out.println(secretTunnelGuy.get("name"));
+            for(int x=0; x<JSONArray.size();x++){
+                JSONObject secretTunnelGuy4 =(JSONObject) JSONArray.get(x);
+                System.out.println(secretTunnelGuy4.get("name"));
 
 
             }
@@ -117,12 +227,37 @@ public class ReadJson {
         }
 
 
-public void Initilize
-        frame=new JFrame();
-        frame=setTitle("BorderPane");
-        frame.setDefault
+
+
+
+
+}
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
 
     }
+    private class ButtonClickListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            String command = e.getActionCommand();
+
+            if (command.equals("OK")) {
+                statusLabel.setText("Ok Button clicked.");
+            } else if (command.equals("Submit")) {
+                statusLabel.setText("Submit Button clicked.");
+            } else if (command.equals("Cate!")) {
+                statusLabel.setText("Cate! Button clicked");
+            } else if (command.equals("hello")) {
+                statusLabel.setText("hello! Button clicked");
+            } else{
+                statusLabel.setText("Cancel Button clicked.");
+
+            }
+        }
+    }
 }
+
+
+
 
 
